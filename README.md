@@ -7,8 +7,11 @@ An interactive web app built with React to visualize popular pathfinding algorit
 
 ## Screenshots
 
+- Green: Start Node
+- Red: End Node
 <div>
 <img style="width:80%" src="./img1.png">
+<img style="width:80%" src="./img2.png">
 
 </div>
 

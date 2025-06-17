@@ -4,10 +4,12 @@
   align-items: center;
   margin-top: 50px;
   gap: 25px;
+  
 }
 
 .button{
     font-size: large;
     padding: 10px;
     cursor: pointer;
+    border-radius: 10px;
 }
