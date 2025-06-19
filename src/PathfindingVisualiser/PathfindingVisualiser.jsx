@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Node from "./Node/Node.jsx";
 import "./PathfindingVisualiser.css";
-import { dijsktra } from "./algorithms/dijkstra.js";
+import { dijsktra, getNodesInShortestPathOrder } from "./algorithms/dijkstra.js";
 
 
 
@@ -16,6 +16,7 @@ export default class PathfindingVisualiser extends Component {
     this.state = {
       grid: [],
       mouseIsPressed: false,
+      shortestPathLengh: 0,
     };
   }
   componentDidMount() {
@@ -39,19 +40,29 @@ export default class PathfindingVisualiser extends Component {
     this.setState({mouseIsPressed: false});
   }
 
-  animateDijkstra(visitedNodesInOrder){
-    for(let i=0;i<visitedNodesInOrder.length;i++){
+  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder){
+    for(let i=0;i<= visitedNodesInOrder.length;i++){
       if (i === visitedNodesInOrder.length) {
       setTimeout(() => {
-        
+        this.animateInShortestPath(nodesInShortestPathOrder)
+        console.log(nodesInShortestPathOrder)
       }, 10 * i);
       return;
     }
       setTimeout(()=>{
       const node= visitedNodesInOrder[i];
-
+      
       document.getElementById(`node-${node.row}-${node.col}`).className='node node-visited';
       },10*i);
+    }
+  }
+
+  animateInShortestPath(nodesInShortestPathOrder){
+    for(let i=0; i<nodesInShortestPathOrder.length; i++){
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className='node node-shortest-path';
+      }, 25*i);
     }
   }
 
@@ -60,7 +71,10 @@ export default class PathfindingVisualiser extends Component {
     const startNode =grid[START_NODE_ROW][START_NODE_COL];
     const finshNode =grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder =dijsktra(grid,startNode,finshNode);
-    this.animateDijkstra(visitedNodesInOrder);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finshNode);
+    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+   
+    this.setState({ shortestPathLengh: nodesInShortestPathOrder.length});
 
   }
 
@@ -70,9 +84,14 @@ export default class PathfindingVisualiser extends Component {
     return (
       <>
       <div className="container">
+
+        <div className="container2">
       <button
       className="button" 
       onClick={()=>this.visualiseDijsktra()}>Visualise Dijkstra's Algorithm</button>
+      <p className="Shortest-path">Total shortest steps : {this.state.shortestPathLengh}</p>
+        </div>
+      
       <div className="grid">
         {grid.map((row, rowIdx) => {
           return (
@@ -89,6 +108,7 @@ export default class PathfindingVisualiser extends Component {
                   onMouseDown={(row,col)=>this.handleMouseDown(row,col)}
                   onMouseEnter={(row,col)=>this.handleMouseEnter(row,col)}
                   onMouseUp={()=>this.handleMouseUp()}
+                  isWall ={isWall}
                   row={row}
                   ></Node>
                 );

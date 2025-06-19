@@ -11,5 +11,17 @@
     font-size: large;
     padding: 10px;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 7px;
+}
+
+.Shortest-path{
+  font-size: large;
+  border: white;
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+.container2{
+  display: flex;
+  gap: 50px;
 }

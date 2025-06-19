@@ -14,10 +14,10 @@ export function dijsktra(grid, startNode, finishNode){
         //     currentNode=getClosestNode(nodes, unvisitedNodes)
         // }
         // HANDLE IMPOSSIBLE LATER
-        // if(closestNode.distance===Infinity) return false;
         // ANIMATE LATER
         // nodesToA nimate.push(closestNode);
-
+        
+        if(closestNode.distance===Infinity) return visitedNodesInOrder;
         closestNode.isVisited =true;
         visitedNodesInOrder.push(closestNode);
         if(closestNode===finishNode) return visitedNodesInOrder;
@@ -57,4 +57,14 @@ function getAllNodes(grid){
         }
     }
     return nodes;
+}
+
+export function getNodesInShortestPathOrder(finishNode){
+    const nodesInShortestPathOrder = [];
+    let currentNode = finishNode;
+    while(currentNode != null){
+        nodesInShortestPathOrder.unshift(currentNode);
+        currentNode = currentNode.previousNode;
+    }
+    return nodesInShortestPathOrder;
 }

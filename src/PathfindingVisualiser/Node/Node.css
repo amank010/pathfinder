@@ -37,10 +37,15 @@
 
 @keyframes pulseVisited{
     50%{
-        box-shadow: 0 0 15px 2px ;
+        box-shadow: 0 0 10px 2px rgb(0, 0, 0)
     }
 }
 
 .node-wall{
-    background-color: gray;
+    background-color: rgb(204, 204, 204);
+}
+
+
+.node-shortest-path{
+  background-color: yellow;
 }
