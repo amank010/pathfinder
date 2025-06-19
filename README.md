@@ -12,6 +12,7 @@ An interactive web app built with React to visualize popular pathfinding algorit
 <div>
 <img style="width:80%" src="./img1.png">
 <img style="width:80%" src="./img2.png">
+<img style="width:80%" src="./img3.png">
 
 </div>
 
